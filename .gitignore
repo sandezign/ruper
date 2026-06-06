@@ -1,0 +1,28 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Logs and editor files
+*.log
+.DS_Store
+.idea/
+.vscode/
+
+# Customer and order data
+operations/orders/customer-data/
+operations/orders/exports/
+operations/reports/generated/
+operations/reports/customer-reports/
+
+# Private research working files
+data/private/
+data/raw/
