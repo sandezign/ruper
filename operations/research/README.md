@@ -4,6 +4,10 @@ SOP dan checklist pengumpulan bukti untuk banjir, commute, akses fisik, fasilita
 
 Setiap temuan harus menyertakan sumber, tanggal akses, area cakupan, dan confidence label.
 
+## SOP
+
+- [SOP-RSCH-001: Workflow Internal Setelah Intake](SOP-post-intake-location-research.md) - intake review, desk research lima kategori, scoring, rekomendasi, dan handoff ke quality review.
+
 ## UX Research
 
 - [Paid-beta pre-launch UX research plan](paid-beta-pre-launch-research-plan.md) — rencana riset, standar bukti, launch gates, dan handoff requirement sebelum formal launch.

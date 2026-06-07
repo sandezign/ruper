@@ -30,11 +30,14 @@ Gunakan checklist ini untuk setiap Mini Check, Full Report, dan Compare Report, 
 
 ## D. Evidence dan Confidence
 
+- [ ] Lima kategori wajib telah diperiksa: banjir, commute, akses fisik, fasilitas esensial, dan kualitas lingkungan/red flags.
+- [ ] Skor kategori, bobot, dan skor total mengikuti `STD-SCR-001`.
 - [ ] Finding penting memiliki evidence atau alasan evidence belum tersedia.
 - [ ] Source dan tanggal observasi tersedia bila relevan.
 - [ ] Confidence label sesuai dengan kekuatan evidence.
 - [ ] Evidence yang konflik dijelaskan.
 - [ ] Batasan data dan kebutuhan validasi lapangan terlihat.
+- [ ] Critical red-flag override telah diterapkan bila relevan.
 
 ## E. Bahasa dan Keamanan Klaim
 
@@ -62,4 +65,3 @@ Gunakan checklist ini untuk setiap Mini Check, Full Report, dan Compare Report, 
 | Document version setelah approval |  |
 
 Admin hanya boleh memilih `Approve` bila seluruh pemeriksaan wajib telah lolos.
-

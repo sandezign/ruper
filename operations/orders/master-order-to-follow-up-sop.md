@@ -11,6 +11,8 @@
 | Review frequency | Weekly during validation; quarterly after formal launch |
 | Primary service area | Jabodetabek |
 | Related packages | Single-Location Audit, Dual-Location Comparison, consultation add-on |
+| Research workflow | `SOP-RSCH-001` |
+| Scoring standard | `STD-SCR-001` |
 
 ## 1. Purpose
 
@@ -367,24 +369,25 @@ Skipping a status requires Operations Lead approval and a documented reason.
 
 **Procedure:**
 
-1. Assign a 1-5 dimension score using the approved scoring guidance.
+1. Assign a 0-100 dimension score using `STD-SCR-001`.
 2. Calculate the Rumper Location Score:
 
 ```text
-RLS = (Flood x 6) + (Commute x 5) + (Physical Access x 3)
-    + (Amenities x 3) + (Environmental Quality x 3)
+RLS = (Flood x 0.30) + (Commute x 0.25) + (Physical Access x 0.15)
+    + (Amenities x 0.15) + (Environmental Quality x 0.15)
 ```
 
-3. Keep evidence, dimension scores, and buyer recommendation as separate analytical layers.
-4. Select one primary recommendation:
+3. Apply the confidence and critical red-flag rules in `STD-SCR-001`.
+4. Keep evidence, dimension scores, and buyer recommendation as separate analytical layers.
+5. Select one primary recommendation:
    - `Proceed`
    - `Proceed with caution`
    - `Verify further before deciding`
    - `Avoid until major concerns are resolved`
-5. Explain why the recommendation follows from the evidence and customer context.
-6. Create a tailored physical-survey and next-action checklist.
-7. Assemble the draft report for the purchased package.
-8. Set status to `quality_review` when the draft report and supporting records are complete.
+6. Explain why the recommendation follows from the evidence and customer context.
+7. Create a tailored physical-survey and next-action checklist.
+8. Assemble the draft report for the purchased package.
+9. Set status to `quality_review` when the draft report and supporting records are complete.
 
 **Completion criteria:** Scores are supported by recorded evidence, calculations are correct, and one clear recommendation is documented.
 
