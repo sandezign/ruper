@@ -49,7 +49,7 @@ The lower beta price is an early willingness-to-pay test. It does not replace th
 
 ### North Star and OMTM
 
-- **North Star Metric:** number of qualified property locations analyzed for real buyer decisions
+- **North Star Metric:** number of home-purchase decisions meaningfully supported by Rumper
 - **30-day OMTM:** number of paid beta audits purchased by qualified buyers
 
 ## Core Hypotheses
