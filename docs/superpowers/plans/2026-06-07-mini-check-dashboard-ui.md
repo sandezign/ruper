@@ -1,5 +1,11 @@
 # Mini Check Dashboard UI Implementation Plan
 
+> **Status:** Superseded. Do not execute this plan for the dashboard implementation.
+> Use `docs/superpowers/plans/2026-06-07-post-registration-ai-map-dashboard-ui.md`
+> instead. The dashboard direction changed to follow
+> `docs/superpowers/specs/2026-06-07-post-registration-ai-map-dashboard-design.md`
+> and `product/requirements/PRD-interactive-dashboard-after-location-submit.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a read-only, customer-facing Mini Check dashboard prototype that visualizes the fictional Taman Arunika sample report using the approved Category Explorer UI.

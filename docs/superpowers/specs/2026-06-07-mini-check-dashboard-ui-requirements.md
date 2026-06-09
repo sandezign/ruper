@@ -1,171 +1,251 @@
-# Mini Check Dashboard UI Requirements
+# Post-Registration AI Map Dashboard UI Requirements
 
-**Status:** Approved requirements  
+**Status:** Revised to follow post-registration AI map dashboard requirement  
 **Date:** 2026-06-07  
-**Primary user:** Homebuyer/customer  
+**Primary user:** First-time homebuyer comparing 2-5 shortlisted homes  
+**Primary language:** Bahasa Indonesia  
 **Visual direction:** Existing Rumper landing-page style  
-**Applies to:** Customer-facing Mini Check sample report dashboard
+**Primary source:** `docs/superpowers/specs/2026-06-07-post-registration-ai-map-dashboard-design.md`  
+**Related PRD:** `product/requirements/PRD-interactive-dashboard-after-location-submit.md`
 
 ## 1. Objective
 
-Create a read-only customer dashboard that visualizes the Mini Check sample
-report as an interactive location-risk report. The dashboard must help a
-homebuyer understand the candidate location, material findings, score basis,
-evidence quality, limitations, and next decision gate before paying a booking
-fee or down payment.
+Create the first post-registration product dashboard for Rumper: an interactive
+decision workspace where a registered buyer submits one shortlisted property and
+receives a free preliminary scan with map visualization, provisional scoring,
+AI explanation, and next actions.
 
-The dashboard is not an internal analyst workspace and must not expose editing,
-review, upload, collaboration, or workflow controls in the first version.
+The dashboard must create immediate value after registration without presenting
+AI output as a final human-reviewed recommendation.
 
-## 2. Source Content
+## 2. Product Positioning
 
-The dashboard uses the approved fictional Mini Check scenario:
+Use the **Decision Workspace** approach.
 
-- Location: `Perumahan Taman Arunika, Bekasi`
-- Report type: Mini Check
-- Overall temporary Mini Check score: approximately `68/100`
-- Outcome: `Layak dengan catatan`
-- Recommendation: `Lanjut dengan hati-hati setelah validasi banjir dan akses`
-- Main concerns: access-road ponding and single-access bottleneck
-- Supporting factors: commute and essential amenities are generally supporting
-- Critical override: no confirmed critical red flag
+The dashboard is not a generic GIS explorer, a static PDF report, or an open
+AI chat product. The map provides evidence, AI explains the evidence, and the
+dashboard turns findings into a practical buyer decision workflow.
 
-The dashboard must clearly label the content as fictional sample data.
+Required warning:
 
-## 3. Product Principles
+> Hasil awal berbasis data yang tersedia dan interpretasi AI. Bukan rekomendasi
+> final atau pengganti survei lokasi.
 
-1. **Customer-first language:** Use plain Bahasa Indonesia and avoid analyst
-   jargon unless it is explained.
-2. **Findings before formulas:** Show what matters about the location before
-   showing how every score was calculated.
-3. **Transparent uncertainty:** Show coverage, confidence, limitations, and
-   missing evidence visibly.
-4. **Score and recommendation separation:** The score explains location
-   signals; the recommendation explains what the customer should do next.
-5. **Read-only trust:** The first version is for reading and understanding an
-   approved report, not editing or submitting new evidence.
-6. **Mobile-readable:** The dashboard must work well on phone screens opened
-   from WhatsApp.
+## 3. Primary Journey
 
-## 4. Information Architecture
+```text
+Register
+→ Submit first shortlisted property
+→ Add workplace and basic priorities
+→ See analysis progress
+→ Receive free preliminary scan
+→ Review provisional score, risks, map signals, AI explanation, and next actions
+→ Ask limited AI questions
+→ Open second-survey checklist
+→ See subscription prompt
+→ Subscriber can add, compare, monitor, and ask deeper AI questions
+```
 
-Use a Category Explorer structure with persistent navigation:
+## 4. User And Access Model
 
-| Section | Purpose |
+### Free Registered User
+
+- Can scan one property.
+- Receives provisional score and next actions.
+- Can inspect visible map signals and evidence cards.
+- Gets limited AI assistant usage for that property.
+- Can open a read-only second-survey checklist.
+- Sees locked previews of premium map layers.
+- Can save the scan and return later.
+- Cannot add more properties, compare properties, monitor changes, or use
+  expanded AI chat.
+
+### Monthly Subscriber
+
+- Can scan multiple properties within usage limits.
+- Can save and compare 2-5 active shortlisted homes.
+- Unlocks deeper map layers.
+- Gets expanded AI chat across saved properties.
+- Receives monitoring alerts for important risk-signal changes.
+- Can generate a richer checklist.
+- Can export or share a decision summary.
+
+## 5. Information Architecture
+
+| Area | Purpose |
 |---|---|
-| Overview | Establish location context, top findings, score, and decision gate |
-| Flood | Explain flood and ponding signals |
-| Commute | Explain commute realism and transport options |
-| Access | Explain road access, bottlenecks, and entry/exit risks |
-| Amenities | Explain access to essential facilities |
-| Environment | Explain environmental and local red-flag signals |
-| Methodology | Explain calculation, weights, coverage, confidence, and rubric |
+| Submit Location | Capture property link, map pin, area name, primary workplace, and priorities |
+| Analysis Progress | Show scan progress and prevent a blank wait state |
+| Overview | Show provisional score, top risks, supporting factors, confidence, and next action |
+| Interactive Map | Show property marker, risk signals, zones, layer controls, and evidence popovers |
+| Risk Modules | Show five category scores and evidence per category |
+| Checklist | Convert findings into second-survey questions and observations |
+| AI Assistant | Explain findings and answer evidence-grounded questions |
+| Saved Properties | Show free property limit and subscriber multi-property workspace |
+| Upgrade | Explain subscription value and locked premium capabilities |
 
-Desktop uses a visible sidebar or left navigation. Mobile collapses navigation
-into a compact section switcher or horizontal tabs.
+Release 0 should implement these as a clickable prototype using fictional data.
+Release 1 can connect the same structure to real user, property, scoring, map,
+AI, and entitlement services.
 
-## 5. Overview Requirements
+## 6. Dashboard Requirements
 
-The Overview page uses a finding-led hierarchy:
+### Decision Header
 
-1. Candidate location and fictional-sample label.
-2. Map or spatial location preview.
-3. Top material findings.
-4. Supporting factors.
-5. Temporary Mini Check score.
-6. Recommendation.
-7. Decision gate before booking fee or DP.
+Show:
 
-The Overview must answer within the first screen:
+- property name and location;
+- provisional Rumper Score;
+- interpretation label using existing RLS bands;
+- confidence summary;
+- one clear next action;
+- preliminary-result warning.
 
-- What location is being assessed?
-- What are the most important findings?
-- Is the result broadly positive, mixed, or risky?
-- What must the customer validate before deciding?
+The header must not call the score final, verified, guaranteed, or
+human-reviewed.
 
-## 6. Category Detail Requirements
+### Interactive Risk Map
 
-Each category page uses a map-led evidence layout:
+Show:
 
-- category title and plain-language summary;
-- category score;
-- category coverage;
-- category confidence;
-- map or spatial context as the primary visual;
-- evidence cards tied to the candidate point or surrounding area;
-- missing-data or limited-coverage indicators;
-- validation actions relevant to that category.
+- target property marker;
+- flood and ponding signals;
+- commute and transport access;
+- physical road access;
+- essential facilities;
+- environmental quality and red flags;
+- visible locked preview markers for premium layers where relevant.
 
-Evidence cards should include:
+Selecting a signal opens an evidence card containing:
 
-- finding title;
-- short observation;
+- finding;
+- source summary;
 - confidence label;
-- evidence summary;
 - limitation;
-- customer implication;
+- practical implication;
 - validation action.
 
-The category page should not require customers to understand the scoring
-formula before they understand the practical finding.
+Safety-critical limitations and warnings must never be hidden behind a paywall.
 
-## 7. Methodology Requirements
+### Priority Findings
 
-Use a dedicated Methodology workspace for full scoring transparency.
+Show:
 
-It must include:
+- top supporting factors;
+- top concerns;
+- missing or weak evidence;
+- AI-generated plain-language explanation;
+- distinction between evidence, AI interpretation, and unknown information.
 
-- overall score formula;
-- category weights;
-- category scores;
-- weighted category contribution;
-- priority sub-parameter scores used by the Mini Check;
-- coverage calculation;
-- confidence explanation;
-- interpretation bands;
-- rubric definitions for score anchors;
-- explanation that Mini Check scoring is not equivalent to a Full Report.
+### Risk Modules
 
-The Methodology section may be denser than the customer-facing category pages,
-but it must remain readable and structured with tabs, tables, or segmented
-sections.
+Use the five Rumper score categories:
 
-## 8. Read-Only Scope
+- flood resilience;
+- commute efficiency;
+- physical access and roads;
+- essential facilities;
+- environmental quality and red flags.
 
-Version 1 explicitly excludes:
+Each module shows:
 
-- customer notes;
-- photo uploads;
-- checklist completion;
-- comments;
-- family or collaborator invite;
-- analyst review requests;
-- report editing;
-- evidence submission;
-- payment or order workflow.
+- score;
+- evidence coverage;
+- confidence label;
+- material findings;
+- missing information;
+- validation actions.
 
-Any checklist shown in the dashboard is instructional only.
+### Checklist
 
-## 9. Component Requirements
+Generate a second-survey checklist from detected risks and user priorities.
 
-Use production-grade dashboard patterns:
+Group actions into:
 
-| Component | Usage requirement |
-|---|---|
-| Header | Report identity, sample status, and key metadata |
-| Sidebar / section navigation | Persistent category explorer on desktop |
-| Tabs or segmented control | Mobile section navigation and Methodology subsections |
-| Cards | Findings, evidence summaries, metrics, and decision gates |
-| Badges | Status, confidence, coverage, and warning labels |
-| Alert / callout | Mini Check limitation and fictional sample notice |
-| Map preview | Spatial context and evidence location signals |
-| Table | Methodology calculations and score contribution |
-| Progress / meter | Score and coverage visualization |
-| Accordion / disclosure | Optional detail blocks for evidence and scoring explanation |
+- `Tanya warga / security`;
+- `Observasi langsung`;
+- `Verifikasi ke developer / agent`.
 
-Buttons should be limited because the dashboard is read-only. Any primary
-button must point to a non-editing action such as `Lihat checklist validasi`
-or `Lihat metodologi`.
+Release 0 and free-user views may show the checklist as read-only.
+
+### AI Assistant
+
+The assistant can:
+
+- explain map signals and scores;
+- answer dashboard-grounded questions;
+- prepare survey questions;
+- summarize missing evidence;
+- explain score changes when evidence changes;
+- summarize trade-offs between saved properties for subscribers.
+
+The assistant must:
+
+- cite dashboard evidence when making factual claims;
+- state uncertainty when evidence is incomplete or conflicting;
+- refuse unsupported certainty;
+- avoid final recommendation wording unless a human-reviewed audit exists.
+
+The assistant must not:
+
+- present preliminary findings as verified facts;
+- hide missing or conflicting evidence;
+- guarantee that a property is safe or suitable;
+- issue a final Rumper recommendation;
+- expose hidden reasoning or chain-of-thought.
+
+## 7. Scoring Requirements
+
+Use `STD-SCR-001` category weights:
+
+| Category | Weight |
+|---|---:|
+| Flood resilience | 30% |
+| Commute efficiency | 25% |
+| Physical access and roads | 15% |
+| Essential facilities | 15% |
+| Environmental quality and red flags | 15% |
+
+Each score must show:
+
+- category score;
+- evidence coverage;
+- confidence label;
+- material findings;
+- evidence gaps;
+- validation actions.
+
+The dashboard must visibly separate:
+
+- score;
+- confidence;
+- AI interpretation;
+- next action;
+- final human-reviewed recommendation.
+
+## 8. Monetization Requirements
+
+Free users should see a subscription path after receiving value from the first
+scan, not before.
+
+Suggested upgrade message:
+
+> Bandingkan sampai 5 kandidat rumah, buka layer risiko lanjutan, dan tanya AI
+> lebih dalam sebelum kamu booking fee atau DP.
+
+Locked previews may show premium value, but the interface must still reveal
+safety-critical limitations and preliminary-result warnings.
+
+## 9. Failure States
+
+The dashboard must handle:
+
+- incomplete map data by showing partial results and missing-data notes;
+- AI generation failure by still showing scores and evidence cards;
+- scoring failure by showing missing inputs and recovery action;
+- premium access failure by preserving the scan and showing billing/support
+  recovery;
+- stale monitoring data by showing last update timestamp.
 
 ## 10. Visual Direction
 
@@ -177,61 +257,58 @@ Follow the existing Rumper landing-page style:
 - amber for caution and validation-required states;
 - red only for danger or confirmed high-risk states;
 - green for supporting or verified-positive states;
-- editorial typography pairing aligned with current site direction;
+- editorial typography aligned with the current site direction;
 - generous spacing and rounded cards;
 - report-card and map-preview visual language;
 - calm, trustworthy, non-alarmist tone.
 
-Avoid generic SaaS styling that breaks from the campaign concept. The dashboard
-should feel like an extension of the existing Rumper report preview, not a
-separate analytics product.
+The dashboard should feel like an extension of the Rumper decision-support
+brand, not a generic analytics or GIS product.
 
-## 11. Responsive Behavior
-
-### Desktop
-
-- Use a two-region layout: persistent navigation and main report canvas.
-- Keep the map and primary finding visible near the top of category pages.
-- Place Methodology tables in a readable wide layout.
-
-### Tablet
-
-- Keep category navigation visible if space permits.
-- Stack secondary metric cards below the map and main finding.
-
-### Mobile
-
-- Replace sidebar with horizontal tabs or a compact section switcher.
-- Show one primary content column.
-- Keep touch targets at least `44px`.
-- Avoid dense tables in the first viewport; Methodology tables may scroll
-  horizontally when necessary.
-
-## 12. Accessibility Requirements
+## 11. Accessibility And Responsive Requirements
 
 - Use semantic headings with one `h1`.
-- Ensure WCAG AA color contrast.
-- Do not rely on color alone for warning, confidence, or status.
-- Provide keyboard focus states for all interactive navigation.
-- Use descriptive labels for tabs, disclosures, and map summaries.
-- Provide text equivalents for map evidence markers.
-- Keep body text at least `14px`, with `16px` preferred.
+- Ensure WCAG AA contrast.
+- Do not rely on color alone for warning, confidence, status, or locked state.
+- Provide keyboard focus states for navigation, map signals, layer toggles, AI
+  prompt examples, and evidence popovers.
+- Provide text summaries for map markers and layers.
+- Keep touch targets at least `44px`.
+- Avoid horizontal page scroll on mobile.
+- Use skeletons or progressive cards when analysis takes more than 1 second.
+- Reserve loading-state space to avoid layout shift.
+- Respect reduced-motion preferences.
+
+## 12. Release 0 Prototype Scope
+
+The first implementation should be a clickable prototype with fictional data:
+
+- submit-location screen;
+- analysis progress state;
+- dashboard overview;
+- interactive-looking map with fictional risk signals;
+- risk modules;
+- second-survey checklist;
+- static AI assistant examples;
+- subscription prompt and locked premium layer previews.
+
+Release 0 must not store real customer data, call external AI, use real
+addresses, or imply automated final recommendation.
 
 ## 13. Acceptance Criteria
 
-The UI requirements are satisfied when:
+The dashboard requirements are satisfied when:
 
-1. The dashboard is clearly customer-facing and read-only.
-2. The Overview uses location and findings before score methodology.
-3. All five categories are available through Category Explorer navigation.
-4. Category pages use map-led evidence presentation.
-5. Score, coverage, confidence, missing evidence, and validation actions are
-   visible.
-6. The Methodology workspace exposes all scoring details without overwhelming
-   the Overview.
-7. The visual design follows the existing landing-page style.
-8. The fictional-sample status is visible.
-9. The dashboard remains understandable on mobile.
-10. No customer editing, upload, collaboration, or analyst workflow is included
-    in v1.
+1. The first journey starts after registration and scans one submitted property.
+2. The free scan includes provisional score and next actions.
+3. The dashboard uses map signals with evidence cards.
+4. Each material finding shows confidence, limitation, and validation action.
+5. AI behavior is explicitly evidence-grounded and bounded.
+6. The checklist is generated from detected risks and user priorities.
+7. The interface distinguishes preliminary AI-assisted output from final
+   human-reviewed recommendations.
+8. The subscription path unlocks multiple properties, deeper layers, expanded
+   AI, monitoring, and alerts.
+9. Scoring preserves Rumper category weights and uncertainty principles.
+10. The prototype uses fictional data only and protects real customer privacy.
 

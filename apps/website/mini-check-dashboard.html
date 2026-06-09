@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contoh dashboard Mini Check Rumper untuk memvisualisasikan risiko lokasi rumah."
+    />
+    <title>Rumper Mini Check Dashboard — Contoh Fiktif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="mini-check-dashboard.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#dashboard-main">Lewati ke isi report</a>
+    <div class="dashboard-shell">
+      <header class="dashboard-header" aria-label="Identitas report">
+        <a class="brand" href="index.html" aria-label="Kembali ke halaman Rumper">
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <span>Rumper</span>
+        </a>
+        <div class="report-meta" aria-label="Metadata report">
+          <span class="status-pill status-sample">Contoh fiktif</span>
+          <span>RMP-MINI-SAMPLE-001</span>
+          <span>v0.1</span>
+          <span>7 Juni 2026</span>
+        </div>
+      </header>
+
+      <div class="dashboard-frame">
+        <nav class="section-nav" aria-label="Navigasi kategori report">
+          <button class="section-nav-item is-active" type="button" data-section-target="overview" aria-controls="overview" aria-current="page">Overview</button>
+          <button class="section-nav-item" type="button" data-section-target="flood" aria-controls="flood">Flood</button>
+          <button class="section-nav-item" type="button" data-section-target="commute" aria-controls="commute">Commute</button>
+          <button class="section-nav-item" type="button" data-section-target="access" aria-controls="access">Access</button>
+          <button class="section-nav-item" type="button" data-section-target="amenities" aria-controls="amenities">Amenities</button>
+          <button class="section-nav-item" type="button" data-section-target="environment" aria-controls="environment">Environment</button>
+          <button class="section-nav-item" type="button" data-section-target="methodology" aria-controls="methodology">Methodology</button>
+        </nav>
+
+        <main id="dashboard-main" class="report-canvas">
+          <section id="overview" class="report-section is-active" data-section="overview" tabindex="-1">
+            <div class="overview-grid">
+              <article class="panel panel-dark report-hero">
+                <span class="eyebrow" style="color: var(--lime)">Mini Check · Contoh fiktif</span>
+                <h1 class="page-title">Perumahan Taman Arunika, Bekasi</h1>
+                <p class="lead" style="color: rgba(255,255,255,.72)">
+                  Contoh dashboard read-only untuk membantu pembeli memahami temuan lokasi, bukti, dan validasi yang perlu dilakukan sebelum booking fee atau DP.
+                </p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi peta fiktif kandidat lokasi dan sinyal akses yang perlu divalidasi">
+                  <div class="map-label">Sinyal utama: indikasi genangan di salah satu segmen jalan akses.</div>
+                </div>
+              </article>
+
+              <aside class="section-stack" aria-label="Ringkasan keputusan">
+                <article class="panel score-card">
+                  <span class="card-label">Temporary Mini Score</span>
+                  <div class="score-number">68<span>/100</span></div>
+                  <span class="score-pill status-warning">Layak dengan catatan</span>
+                  <div class="meter" style="--value: 68%; --meter-color: var(--amber); margin-top: 18px"><span></span></div>
+                  <p class="card-text" style="margin-top: 14px">
+                    Skor ini memakai parameter prioritas Mini Check, bukan Full Location Risk Report.
+                  </p>
+                </article>
+
+                <article class="panel decision-card">
+                  <span class="card-label">Rekomendasi</span>
+                  <h2 class="card-title">Lanjut dengan hati-hati setelah validasi banjir dan akses.</h2>
+                  <p class="card-text">
+                    Jangan bayar booking fee atau DP sebelum mengecek genangan akses dan jalur keluar-masuk saat jam sibuk.
+                  </p>
+                </article>
+              </aside>
+            </div>
+
+            <div class="finding-grid" style="margin-top: 18px">
+              <article class="finding-card">
+                <span class="card-label">Temuan utama 01</span>
+                <h2 class="card-title">Indikasi genangan pada jalan akses.</h2>
+                <p class="card-text">Ada sinyal genangan pada satu segmen akses. Frekuensi, kedalaman, dan durasinya belum terkonfirmasi.</p>
+              </article>
+              <article class="finding-card">
+                <span class="card-label">Temuan utama 02</span>
+                <h2 class="card-title">Akses utama memiliki bottleneck.</h2>
+                <p class="card-text">Jalur keluar-masuk utama terlihat bergantung pada satu ruas yang perlu diuji saat jam sibuk.</p>
+              </article>
+              <article class="finding-card supporting">
+                <span class="card-label">Faktor pendukung</span>
+                <h2 class="card-title">Fasilitas harian relatif mudah dijangkau.</h2>
+                <p class="card-text">Kebutuhan dasar seperti minimarket, klinik, dan akses transportasi terindikasi tersedia dalam jangkauan wajar.</p>
+              </article>
+              <article class="finding-card supporting">
+                <span class="card-label">Faktor pendukung</span>
+                <h2 class="card-title">Commute masih layak diuji.</h2>
+                <p class="card-text">Simulasi awal menunjukkan perjalanan masih dapat dipertimbangkan, dengan catatan bottleneck jam sibuk.</p>
+              </article>
+            </div>
+          </section>
+          <section id="flood" class="report-section" data-section="flood" tabindex="-1">
+            <div class="category-layout">
+              <article class="panel category-map-panel">
+                <span class="eyebrow">Flood</span>
+                <h2 class="section-title">Ketahanan banjir</h2>
+                <p class="lead">Sinyal awal menunjukkan risiko genangan di akses, tetapi belum ada konfirmasi kedalaman dan durasi.</p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi titik genangan pada akses menuju kandidat lokasi">
+                  <div class="map-label">Access segment A: perlu dicek saat atau setelah hujan deras.</div>
+                </div>
+              </article>
+              <aside class="panel category-summary-panel">
+                <span class="card-label">Temporary category score</span>
+                <div class="score-number">56<span>/100</span></div>
+                <span class="score-pill status-warning">Perlu perhatian</span>
+                <div class="metric-grid" style="margin-top: 18px">
+                  <div class="metric-card"><span class="card-label">Coverage</span><strong>75%</strong></div>
+                  <div class="metric-card"><span class="card-label">Confidence</span><strong>Data sedang</strong></div>
+                </div>
+                <div class="evidence-list">
+                  <article class="evidence-card">
+                    <h3 class="card-title">Indikasi genangan akses</h3>
+                    <p class="card-text">Evidence fiktif menunjukkan satu segmen akses pernah tergenang. Validasi warga dan observasi hujan masih wajib.</p>
+                  </article>
+                  <article class="evidence-card">
+                    <h3 class="card-title">Data drainase belum cukup</h3>
+                    <p class="card-text">Kondisi saluran air tidak dapat dinilai dari data awal. Tandai sebagai missing evidence.</p>
+                  </article>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section id="commute" class="report-section" data-section="commute" tabindex="-1">
+            <div class="category-layout">
+              <article class="panel category-map-panel">
+                <span class="eyebrow">Commute</span>
+                <h2 class="section-title">Efisiensi commute</h2>
+                <p class="lead">Perjalanan harian terlihat masih dapat dipertimbangkan, dengan bottleneck yang perlu diuji saat jam sibuk.</p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi rute commute fiktif dari kandidat lokasi ke aktivitas utama">
+                  <div class="map-label">Rute utama: perlu simulasi ulang pagi dan sore.</div>
+                </div>
+              </article>
+              <aside class="panel category-summary-panel">
+                <span class="card-label">Temporary category score</span>
+                <div class="score-number">76<span>/100</span></div>
+                <span class="score-pill status-good">Cukup mendukung</span>
+                <div class="metric-grid" style="margin-top: 18px">
+                  <div class="metric-card"><span class="card-label">Coverage</span><strong>84%</strong></div>
+                  <div class="metric-card"><span class="card-label">Confidence</span><strong>Data kuat</strong></div>
+                </div>
+                <div class="evidence-list">
+                  <article class="evidence-card">
+                    <h3 class="card-title">Durasi masih dalam rentang wajar</h3>
+                    <p class="card-text">Simulasi fiktif menunjukkan commute dapat diterima bila bottleneck tidak memburuk.</p>
+                  </article>
+                  <article class="evidence-card">
+                    <h3 class="card-title">Jam sibuk tetap perlu diuji</h3>
+                    <p class="card-text">Validasi lapangan perlu dilakukan pada waktu berangkat dan pulang kerja.</p>
+                  </article>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section id="access" class="report-section" data-section="access" tabindex="-1">
+            <div class="category-layout">
+              <article class="panel category-map-panel">
+                <span class="eyebrow">Access</span>
+                <h2 class="section-title">Akses fisik dan jalan</h2>
+                <p class="lead">Akses utama perlu perhatian karena terlihat bergantung pada satu ruas dengan potensi bottleneck.</p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi akses utama dan bottleneck menuju kandidat lokasi">
+                  <div class="map-label">Single primary access: cek alternatif keluar-masuk dan akses darurat.</div>
+                </div>
+              </article>
+              <aside class="panel category-summary-panel">
+                <span class="card-label">Temporary category score</span>
+                <div class="score-number">60<span>/100</span></div>
+                <span class="score-pill status-warning">Perlu perhatian</span>
+                <div class="metric-grid" style="margin-top: 18px">
+                  <div class="metric-card"><span class="card-label">Coverage</span><strong>78%</strong></div>
+                  <div class="metric-card"><span class="card-label">Confidence</span><strong>Data sedang</strong></div>
+                </div>
+                <div class="evidence-list">
+                  <article class="evidence-card">
+                    <h3 class="card-title">Jalur alternatif belum jelas</h3>
+                    <p class="card-text">Jika akses utama terganggu, rute pengganti belum dapat dipastikan dari data awal.</p>
+                  </article>
+                  <article class="evidence-card">
+                    <h3 class="card-title">Bottleneck perlu diuji</h3>
+                    <p class="card-text">Cek apakah dua mobil dapat berpapasan dan apakah kendaraan darurat dapat masuk.</p>
+                  </article>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section id="amenities" class="report-section" data-section="amenities" tabindex="-1">
+            <div class="category-layout">
+              <article class="panel category-map-panel">
+                <span class="eyebrow">Amenities</span>
+                <h2 class="section-title">Fasilitas esensial</h2>
+                <p class="lead">Kebutuhan harian dasar terlihat cukup tersedia untuk tahap screening awal.</p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi fasilitas harian di sekitar kandidat lokasi">
+                  <div class="map-label">Minimarket, klinik, dan fasilitas harian terindikasi dalam jangkauan wajar.</div>
+                </div>
+              </article>
+              <aside class="panel category-summary-panel">
+                <span class="card-label">Temporary category score</span>
+                <div class="score-number">82<span>/100</span></div>
+                <span class="score-pill status-good">Relatif mendukung</span>
+                <div class="metric-grid" style="margin-top: 18px">
+                  <div class="metric-card"><span class="card-label">Coverage</span><strong>88%</strong></div>
+                  <div class="metric-card"><span class="card-label">Confidence</span><strong>Data kuat</strong></div>
+                </div>
+                <div class="evidence-list">
+                  <article class="evidence-card">
+                    <h3 class="card-title">Fasilitas harian tersedia</h3>
+                    <p class="card-text">Sinyal fiktif menunjukkan kebutuhan dasar dapat dijangkau tanpa perjalanan panjang.</p>
+                  </article>
+                  <article class="evidence-card">
+                    <h3 class="card-title">Kualitas fasilitas belum dinilai</h3>
+                    <p class="card-text">Mini Check hanya menilai ketersediaan awal, bukan kualitas detail fasilitas.</p>
+                  </article>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section id="environment" class="report-section" data-section="environment" tabindex="-1">
+            <div class="category-layout">
+              <article class="panel category-map-panel">
+                <span class="eyebrow">Environment</span>
+                <h2 class="section-title">Kualitas lingkungan</h2>
+                <p class="lead">Tidak ada red flag kritis terkonfirmasi, tetapi beberapa kondisi lingkungan tetap perlu dicek langsung.</p>
+                <div class="map-preview" role="img" aria-label="Ilustrasi kondisi lingkungan sekitar kandidat lokasi">
+                  <div class="map-label">Validasi lapangan: kebisingan, bau, aktivitas malam, dan keamanan jalan.</div>
+                </div>
+              </article>
+              <aside class="panel category-summary-panel">
+                <span class="card-label">Temporary category score</span>
+                <div class="score-number">72<span>/100</span></div>
+                <span class="score-pill status-warning">Layak dengan catatan</span>
+                <div class="metric-grid" style="margin-top: 18px">
+                  <div class="metric-card"><span class="card-label">Coverage</span><strong>66%</strong></div>
+                  <div class="metric-card"><span class="card-label">Confidence</span><strong>Perlu validasi</strong></div>
+                </div>
+                <div class="evidence-list">
+                  <article class="evidence-card">
+                    <h3 class="card-title">Tidak ada red flag kritis terkonfirmasi</h3>
+                    <p class="card-text">Data awal tidak menunjukkan TPA, SUTET, atau industri berat yang langsung berdekatan.</p>
+                  </article>
+                  <article class="evidence-card">
+                    <h3 class="card-title">Coverage terbatas</h3>
+                    <p class="card-text">Kebisingan, bau, dan keamanan malam harus dicek langsung karena sulit dipastikan dari desk research.</p>
+                  </article>
+                </div>
+              </aside>
+            </div>
+          </section>
+          <section id="methodology" class="report-section" data-section="methodology" tabindex="-1"></section>
+        </main>
+      </div>
+    </div>
+    <script src="mini-check-dashboard.js"></script>
+  </body>
+</html>
