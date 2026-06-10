@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bagikan kandidat rumah dan kekhawatiran lokasi untuk ditinjau Rumper.">
+  <title>Cek Risiko Lokasi Rumah Saya — Rumper</title>
+  <link rel="stylesheet" href="shared.css?v=intake-prototype-2">
+</head>
+<body class="intake-page">
+  <a class="skip" href="#intake-main">Lewati ke formulir</a>
+  <header class="nav">
+    <nav class="shell nav-inner" aria-label="Navigasi formulir">
+      <a class="brand" href="editorial.html">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 20v-9l7-6 7 6v9M9 20v-6h6v6"/></svg></span>
+        Rumper
+      </a>
+      <span class="intake-nav-note">Formulir Mini Check</span>
+      <a class="button button-secondary intake-back-link" href="editorial.html">Kembali ke landing page</a>
+    </nav>
+  </header>
+
+  <main id="intake-main" class="intake-shell">
+    <aside class="intake-aside">
+      <div>
+        <span class="eyebrow">Cek sebelum DP</span>
+        <h1>Ceritakan rumah yang sedang kamu pertimbangkan.</h1>
+        <p>Rumper menggunakan konteks ini untuk memahami risiko lokasi yang paling relevan untuk keputusanmu.</p>
+      </div>
+      <div class="intake-promise">
+        <span>± 3 menit</span>
+        <strong>Ringkas, buyer-side, dan tanpa akun.</strong>
+        <p>Rumper bukan agen properti dan tidak menggantikan survei fisik.</p>
+      </div>
+    </aside>
+
+    <section class="intake-workspace" aria-labelledby="step-title">
+      <div class="intake-progress">
+        <div class="progress-copy"><span data-progress-label>Langkah 1 dari 6</span><span data-progress-percent>17%</span></div>
+        <div class="progress-track" aria-hidden="true"><span data-progress-bar></span></div>
+        <ol class="progress-dots" aria-label="Kemajuan formulir">
+          <li class="active"><span>1</span><b>Identitas</b></li>
+          <li><span>2</span><b>Properti</b></li>
+          <li><span>3</span><b>Konteks</b></li>
+          <li><span>4</span><b>Aktivitas</b></li>
+          <li><span>5</span><b>Risiko</b></li>
+          <li><span>6</span><b>Kirim</b></li>
+        </ol>
+      </div>
+
+      <form id="intake-form" novalidate>
+        <section class="intake-step active" data-step="1">
+          <span class="label">01 · Buyer Identity</span>
+          <h2 id="step-title">Mulai dari identitas kamu.</h2>
+          <p class="step-lead">Kami menggunakan informasi ini hanya untuk meninjau permintaan dan melanjutkan melalui WhatsApp.</p>
+          <div class="field">
+            <label for="full-name">Nama lengkap</label>
+            <input id="full-name" name="full_name" autocomplete="name" required minlength="2" maxlength="100" placeholder="Contoh: Ari Sandy">
+            <span class="error">Masukkan nama lengkap minimal 2 karakter.</span>
+          </div>
+          <div class="field">
+            <label for="whatsapp-number">Nomor WhatsApp</label>
+            <input id="whatsapp-number" name="whatsapp_number" autocomplete="tel" inputmode="tel" required placeholder="Contoh: 0812 3456 7890">
+            <span class="error">Masukkan nomor WhatsApp yang valid.</span>
+          </div>
+        </section>
+
+        <section class="intake-step" data-step="2">
+          <span class="label">02 · Property Candidate</span>
+          <h2>Rumah mana yang ingin kamu cek?</h2>
+          <p class="step-lead">Satu referensi spesifik membantu Rumper memberi tinjauan yang lebih relevan.</p>
+          <div class="field"><label for="property-name">Nama properti atau perumahan</label><input id="property-name" name="property_name_or_area" maxlength="200" placeholder="Contoh: Perumahan Taman Arunika"></div>
+          <div class="field"><label for="maps-url">Link Google Maps</label><input id="maps-url" name="google_maps_url" type="url" placeholder="https://maps.google.com/..."><span class="error">Masukkan link Google Maps yang valid.</span></div>
+          <div class="field"><label for="listing-url">Link listing properti</label><input id="listing-url" name="listing_url" type="url" placeholder="https://..."><span class="error">Masukkan link listing yang valid.</span></div>
+          <label class="choice-card exploratory-card"><input type="checkbox" name="is_exploratory"><span><strong>Saya masih eksplorasi</strong><small>Belum punya lokasi spesifik untuk dicek.</small></span></label>
+          <p class="step-error" data-property-error>Pilih eksplorasi atau isi setidaknya satu referensi properti.</p>
+        </section>
+
+        <section class="intake-step" data-step="3">
+          <span class="label">03 · Buying Context</span>
+          <h2>Seberapa dekat keputusanmu?</h2>
+          <p class="step-lead">Konteks ini membantu kami memprioritaskan permintaan yang mendekati booking fee atau DP.</p>
+          <fieldset><legend>Rumah ini akan digunakan untuk apa?</legend><div class="choice-grid">
+            <label class="choice-card"><input type="radio" name="purchase_purpose" value="Ditinggali sendiri" required><span>Ditinggali sendiri</span></label>
+            <label class="choice-card"><input type="radio" name="purchase_purpose" value="Ditinggali bersama pasangan atau keluarga"><span>Bersama pasangan / keluarga</span></label>
+            <label class="choice-card"><input type="radio" name="purchase_purpose" value="Investasi"><span>Investasi</span></label>
+            <label class="choice-card"><input type="radio" name="purchase_purpose" value="Belum yakin"><span>Belum yakin</span></label>
+          </div><p class="step-error">Pilih tujuan pembelian.</p></fieldset>
+          <div class="field"><label for="buying-stage">Saat ini kamu sudah di tahap apa?</label><select id="buying-stage" name="buying_stage" required><option value="">Pilih tahap pembelian</option><option>Baru eksplorasi area</option><option>Sudah punya kandidat</option><option>Sudah survei lokasi</option><option>Hampir bayar booking fee</option><option>Hampir bayar DP</option><option>Sudah booking dan ingin validasi</option></select><span class="error">Pilih tahap pembelian saat ini.</span></div>
+          <div class="field"><label for="decision-timeline">Kapan rencana booking fee atau DP?</label><select id="decision-timeline" name="decision_timeline" required><option value="">Pilih perkiraan waktu</option><option>Kurang dari 1 bulan</option><option>1–3 bulan</option><option>3–6 bulan</option><option>Lebih dari 6 bulan</option><option>Belum pasti</option></select><span class="error">Pilih perkiraan waktu keputusan.</span></div>
+        </section>
+
+        <section class="intake-step" data-step="4">
+          <span class="label">04 · Daily Life Context</span>
+          <h2>Seperti apa rutinitas harianmu?</h2>
+          <p class="step-lead">Kami memakai konteks ini untuk memahami beban commute, bukan untuk melacak perjalananmu.</p>
+          <div class="field"><label for="activity-location">Lokasi kerja atau aktivitas utama <em>Opsional</em></label><input id="activity-location" name="primary_activity_location" maxlength="200" placeholder="Contoh: SCBD, Jakarta Selatan"></div>
+          <fieldset><legend>Transportasi utama sehari-hari</legend><div class="choice-grid transport-grid">
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Mobil pribadi" required><span>Mobil pribadi</span></label>
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Motor pribadi"><span>Motor pribadi</span></label>
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Transportasi umum"><span>Transportasi umum</span></label>
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Ojek online"><span>Ojek online</span></label>
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Kombinasi"><span>Kombinasi</span></label>
+            <label class="choice-card"><input type="radio" name="primary_transport" value="Lainnya"><span>Lainnya</span></label>
+          </div><p class="step-error">Pilih transportasi utama.</p></fieldset>
+        </section>
+
+        <section class="intake-step" data-step="5">
+          <span class="label">05 · Risk Concerns</span>
+          <h2>Apa yang paling membuatmu ragu?</h2>
+          <p class="step-lead">Pilih semua risiko yang ingin kamu pahami sebelum membuat komitmen finansial.</p>
+          <fieldset><legend class="sr-only">Risiko lokasi utama</legend><div class="concern-grid">
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Banjir atau genangan"><span>〰</span><b>Banjir atau genangan</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Commute"><span>↗</span><b>Commute</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Akses jalan"><span>↔</span><b>Akses jalan</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Kemacetan"><span>≋</span><b>Kemacetan</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Transportasi umum"><span>▣</span><b>Transportasi umum</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Fasilitas keluarga"><span>＋</span><b>Fasilitas keluarga</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Lingkungan sekitar"><span>◎</span><b>Lingkungan sekitar</b></label>
+            <label class="concern-card"><input type="checkbox" name="risk_concerns" value="Keamanan"><span>◇</span><b>Keamanan</b></label>
+          </div><p class="step-error" data-concern-error>Pilih setidaknya satu risiko.</p></fieldset>
+          <div class="field"><label for="concern-detail">Ceritakan kekhawatiran utama <em>Opsional</em></label><textarea id="concern-detail" name="concern_detail" maxlength="1000" rows="4" placeholder="Contoh: Sales mengatakan bebas banjir, tetapi akses masuk terlihat lebih rendah..."></textarea></div>
+        </section>
+
+        <section class="intake-step" data-step="6">
+          <span class="label">06 · Consent and Submit</span>
+          <h2>Periksa sebelum dikirim.</h2>
+          <p class="step-lead">Ini adalah prototype. Data tidak disimpan dan WhatsApp tidak akan dibuka.</p>
+          <div class="review-card" data-review></div>
+          <div class="consent-stack">
+            <label class="choice-card"><input type="checkbox" name="whatsapp_contact_consent" required><span><strong>Saya bersedia dihubungi melalui WhatsApp.</strong></span></label>
+            <label class="choice-card"><input type="checkbox" name="privacy_acknowledgement" required><span><strong>Saya memahami data digunakan untuk memproses permintaan.</strong></span></label>
+            <label class="choice-card"><input type="checkbox" name="feedback_consent"><span><strong>Saya bersedia memberi feedback.</strong><small>Opsional</small></span></label>
+          </div>
+          <p class="step-error" data-consent-error>Setujui kontak WhatsApp dan penggunaan data untuk mengirim permintaan.</p>
+        </section>
+
+        <section class="intake-success" data-success aria-live="polite">
+          <div class="success-mark">✓</div>
+          <span class="eyebrow">Prototype berhasil</span>
+          <h2>Permintaanmu siap ditinjau.</h2>
+          <p>Dalam produk nyata, data akan disimpan sebelum percakapan dilanjutkan melalui WhatsApp.</p>
+          <div class="classification-card"><span>Klasifikasi awal</span><strong data-classification-label></strong><small data-classification-note></small></div>
+          <p class="request-id">ID Prototype: <b data-request-id></b></p>
+          <a class="button button-primary" href="editorial.html">Kembali ke landing page</a>
+        </section>
+
+        <div class="intake-actions" data-actions>
+          <button class="button button-secondary" type="button" data-back disabled>Kembali</button>
+          <span class="autosave-note">Jawaban tersimpan selama halaman terbuka</span>
+          <button class="button button-primary" type="button" data-next>Lanjutkan</button>
+          <button class="button button-primary" type="submit" data-submit>Kirim Lokasi untuk Dicek</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script src="intake.js?v=intake-prototype-2"></script>
+</body>
+</html>

@@ -1,16 +1,18 @@
 # PRD: Rumper Campaign Intake Form — Before the Down Payment
 
-**Status:** Approved design, ready for implementation planning  
+**Status:** Draft revision for review
 **Primary route:** `/sebelum-dp/intake`  
 **Entry point:** Primary CTA from `/sebelum-dp`  
 **Primary language:** Bahasa Indonesia  
 **Initial storage:** Google Sheets through a controlled submission endpoint
 
+**Prototype route:** `/campaign-concepts/intake.html`
+
 ## 1. Summary
 
 Rumper needs a simple, mobile-first intake flow after the campaign landing page. The form collects enough information to understand a buyer's context, save the inquiry for validation tracking, and continue the conversation through WhatsApp.
 
-The first release uses a short multi-step form. It allows visitors without a specific property location to submit, but marks them as exploratory leads rather than qualified Mini-Check requests.
+The first release uses a six-step multi-step form. It allows visitors without a specific property location to submit and classifies every submission as a qualified candidate-location request, exploratory request, or low-fit request.
 
 ## 2. Contacts
 
@@ -82,10 +84,17 @@ Rumper receives structured lead data that can be used for qualification, custome
 
 | Classification | Definition |
 |---|---|
-| `qualified_candidate` | Submission includes a usable property name, Google Maps link, or listing link |
-| `exploratory` | Submission does not include a usable specific property reference |
+| `qualified_candidate` | Buyer provides a usable property reference and is approaching a real booking-fee or DP decision |
+| `exploratory` | Buyer is relevant to Rumper's buyer-side service but does not yet have a specific candidate location |
+| `low_fit` | Buyer is outside the current service focus or is not approaching a real property decision |
 
-Location availability alone does not decide final qualification. Operations must also review intended use, decision stage, timeline, and stated concern.
+The system assigns an initial classification after submission. Operations may correct the classification after reviewing the property reference and buyer context.
+
+| Classification | User-facing label |
+|---|---|
+| `qualified_candidate` | `Permintaan lokasi kandidat` |
+| `exploratory` | `Permintaan eksplorasi` |
+| `low_fit` | `Permintaan di luar fokus saat ini` |
 
 ## 5. Market Segments
 
@@ -131,14 +140,16 @@ Share your buying context and location concerns so Rumper can help identify the 
 ```text
 Visitor clicks a primary CTA on /sebelum-dp
 → Opens /sebelum-dp/intake with campaign attribution
-→ Reads the short introduction
 → Completes the multi-step intake
-→ Reviews and submits the form
+→ Reviews a compact answer summary in the final step
+→ Submits the form
 → Submission is saved to Google Sheets
-→ Success state confirms the inquiry was received
+→ Success state confirms the inquiry and initial classification
 → WhatsApp opens with a prefilled confirmation message
 → Operations reviews and follows up
 ```
+
+Visitors who submit the landing-page sample-report form also open the separate intake page. Their available name and WhatsApp values are prefilled in Step 1 and remain editable. The intake header provides a visible action back to the landing page.
 
 ### 7.2 Flow Structure
 
@@ -146,54 +157,58 @@ The form uses one section per screen with a visible progress indicator.
 
 | Step | Section | Purpose |
 |---:|---|---|
-| 1 | Intro | Explain what information is needed and what happens next |
-| 2 | Contact | Collect the minimum information needed for follow-up |
-| 3 | Location | Collect a property reference when available |
-| 4 | Buying Context | Understand intended use, buying stage, and urgency |
-| 5 | User Needs | Understand daily needs and primary concerns |
-| 6 | Consent | Record WhatsApp and feedback permissions |
-| 7 | Review and Submit | Let the visitor review key answers and submit |
+| 1 | Buyer Identity | Collect the minimum information needed for follow-up |
+| 2 | Property Candidate | Collect a specific property reference or confirm exploratory status |
+| 3 | Buying Context | Understand intended use, buying stage, and urgency |
+| 4 | Daily Life Context | Understand the buyer's recurring travel needs |
+| 5 | Risk Concerns | Identify the location risks the buyer wants to investigate |
+| 6 | Consent and Submit | Record consent, review key answers, and submit |
 
 Users can move backward without losing answers. Moving forward validates only the current step.
 
 ### 7.3 Form Content
 
-#### Step 1: Intro
+The page introduction above Step 1 must explain:
 
-| Element | Requirement |
-|---|---|
-| Title | `Cek Risiko Lokasi Rumah Saya` |
-| Description | Explain that Rumper checks location-risk signals before booking fee or DP |
-| Expectation | Explain that the team will review the submission and continue through WhatsApp |
-| Limitation | State that Rumper is not an agent and does not replace a physical site survey |
-| Primary action | `Mulai` |
+- Rumper checks location-risk signals before booking fee or DP.
+- The form takes approximately three minutes.
+- The team will review the submission and continue through WhatsApp.
+- Rumper is not a property agent and does not replace a physical site survey.
 
-#### Step 2: Contact
+#### Step 1: Buyer Identity
 
 | Field ID | Label | Type | Required | Validation |
 |---|---|---|---|---|
-| `full_name` | Nama | Short text | Yes | 2–100 characters |
+| `full_name` | Nama lengkap | Short text | Yes | 2–100 characters |
 | `whatsapp_number` | Nomor WhatsApp | Telephone | Yes | Accept a valid Indonesian or international phone-number format |
 
 Helper text for WhatsApp:
 
 > Kami akan menggunakan nomor ini untuk mengonfirmasi kebutuhan dan melanjutkan proses pengecekan.
 
-#### Step 3: Location
+If the visitor arrives after submitting the sample-report request form, available name and WhatsApp values may be prefilled. The visitor must still be able to edit them.
 
-All location fields are optional. The form must clearly explain that a specific property helps Rumper provide a more useful follow-up.
+#### Step 2: Property Candidate
+
+The form must clearly explain that a specific property helps Rumper provide a more useful review.
 
 | Field ID | Label | Type | Required | Validation |
 |---|---|---|---|---|
-| `property_name_or_area` | Nama perumahan / area | Short text | No | Maximum 200 characters |
+| `property_name_or_area` | Nama properti atau perumahan | Short text | Conditional | 2–200 characters when entered |
 | `google_maps_url` | Link Google Maps | URL | No | Valid `http` or `https` URL when entered |
 | `listing_url` | Link listing properti | URL | No | Valid `http` or `https` URL when entered |
+| `is_exploratory` | Saya masih eksplorasi dan belum punya lokasi spesifik | Checkbox | Conditional | Must be selected when all property-reference fields are empty |
 
-If all three fields are empty, show a non-blocking message:
+At least one property-reference field or `is_exploratory` must be provided before continuing.
 
-> Belum punya kandidat spesifik? Tidak masalah. Permintaan kamu akan kami catat sebagai eksplorasi awal.
+When `is_exploratory` is selected:
 
-#### Step 4: Buying Context
+- Clear and disable the three property-reference fields after confirming with the visitor if they already contain values.
+- Show: `Tidak masalah. Permintaan kamu akan dicatat sebagai eksplorasi awal.`
+
+When the visitor enters a property reference after selecting `is_exploratory`, automatically clear the exploratory selection.
+
+#### Step 3: Buying Context
 
 | Field ID | Label | Type | Required | Options |
 |---|---|---|---|---|
@@ -205,37 +220,42 @@ If `purchase_purpose` is `Investasi`, show a non-blocking scope message:
 
 > Rumper saat ini berfokus pada risiko lokasi, bukan analisis investasi atau prediksi kenaikan harga.
 
-#### Step 5: User Needs
+#### Step 4: Daily Life Context
 
 | Field ID | Label | Type | Required | Options or validation |
 |---|---|---|---|---|
-| `primary_activity_location` | Lokasi kerja atau aktivitas utama | Short text | No | Maximum 200 characters |
+| `primary_activity_location` | Lokasi kerja atau aktivitas utama | Short text | No | Maximum 200 characters; allow area, landmark, or destination name |
 | `primary_transport` | Transportasi utama sehari-hari | Single choice | Yes | Mobil pribadi; Motor pribadi; Transportasi umum; Ojek online; Kombinasi; Lainnya |
-| `family_status` | Status keluarga saat ini | Single choice | No | Single; Menikah, belum punya anak; Menikah, punya anak; Tinggal bersama keluarga besar; Lainnya |
+
+Helper text for activity location:
+
+> Informasi ini membantu Rumper memahami kebutuhan commute, bukan untuk melacak perjalanan kamu.
+
+#### Step 5: Risk Concerns
+
+| Field ID | Label | Type | Required | Options or validation |
+|---|---|---|---|---|
 | `risk_concerns` | Risiko apa yang paling kamu khawatirkan? | Multiple choice | Yes | Banjir atau genangan; Commute; Akses jalan; Kemacetan; Transportasi umum; Fasilitas keluarga; Lingkungan sekitar; Keamanan; Klaim sales atau developer; Belum tahu |
 | `concern_detail` | Ceritakan kekhawatiran utama kamu | Long text | No | Maximum 1,000 characters |
 
 At least one `risk_concerns` option must be selected.
 
-#### Step 6: Consent
+#### Step 6: Consent and Submit
 
 | Field ID | Label | Type | Required | Behavior |
 |---|---|---|---|---|
 | `whatsapp_contact_consent` | Saya bersedia dihubungi Rumper melalui WhatsApp terkait permintaan ini | Required checkbox | Yes | Submission is blocked until checked |
-| `feedback_consent` | Apakah kamu bersedia memberi feedback setelah menerima hasil pengecekan? | Single choice | Yes | Options: Ya; Tidak |
 | `privacy_acknowledgement` | Saya memahami data ini digunakan untuk memproses permintaan dan validasi layanan Rumper | Required checkbox | Yes | Submission is blocked until checked |
+| `feedback_consent` | Saya bersedia memberi feedback setelah menerima hasil pengecekan | Optional checkbox | No | Store `true` when selected and `false` when not selected |
 
 Consent must not be preselected.
 
-#### Step 7: Review and Submit
-
-The review screen must show:
+The final step must show a compact answer summary containing:
 
 - Name and WhatsApp number.
 - Available property references.
 - Buying stage and decision timeline.
 - Primary risk concerns.
-- Contact and feedback consent choices.
 
 Users can return to the relevant step to edit an answer.
 
@@ -257,6 +277,21 @@ On submission:
 8. Open WhatsApp with a prefilled confirmation message.
 
 The form must only open WhatsApp after Google Sheets confirms a successful save.
+
+#### Initial Classification Rules
+
+Classification uses the following precedence:
+
+1. Assign `low_fit` when `purchase_purpose` is `Investasi`, or when either the buying stage or decision timeline falls outside the near-term rules below.
+2. Otherwise assign `qualified_candidate` when at least one usable property name, Google Maps link, or listing link is provided.
+3. Otherwise assign `exploratory`.
+
+For the initial rule, a buyer is considered near-term when:
+
+- `decision_timeline` is `Kurang dari 1 bulan` or `1–3 bulan`; and
+- `buying_stage` is `Sudah punya kandidat`, `Sudah survei lokasi`, `Hampir bayar booking fee`, `Hampir bayar DP`, or `Sudah booking dan ingin validasi`.
+
+Operations must verify the initial classification. A property name or URL is not considered usable merely because the field is non-empty.
 
 ### 7.5 WhatsApp Handoff
 
@@ -291,7 +326,7 @@ Required copy:
 The success state must also show:
 
 - The generated request ID.
-- Whether the request is recorded as a specific-location request or exploratory request.
+- Whether the request is initially recorded as a qualified candidate-location, exploratory, or low-fit request.
 - A WhatsApp continuation button.
 - A link back to the campaign landing page.
 
@@ -312,12 +347,12 @@ Required columns:
 | `property_name_or_area` | Form |
 | `google_maps_url` | Form |
 | `listing_url` | Form |
+| `is_exploratory` | Form |
 | `purchase_purpose` | Form |
 | `buying_stage` | Form |
 | `decision_timeline` | Form |
 | `primary_activity_location` | Form |
 | `primary_transport` | Form |
-| `family_status` | Form |
 | `risk_concerns` | Form, stored as a consistent separated list |
 | `concern_detail` | Form |
 | `whatsapp_contact_consent` | Form |
@@ -428,15 +463,18 @@ Do not send names, phone numbers, property names, URLs, concern details, or requ
 
 #### Location and Classification
 
-- Users can submit without entering a property name, Google Maps link, or listing link.
-- A submission without a property reference is saved as `exploratory`.
-- A submission with at least one property reference is saved as `qualified_candidate`.
+- Users can continue without a property reference only after selecting `is_exploratory`.
+- Selecting `is_exploratory` disables the property-reference fields.
+- A relevant near-term submission without a property reference is saved as `exploratory`.
+- A relevant near-term submission with a usable property reference is saved as `qualified_candidate`.
+- An investment-focused or non-near-term submission is saved as `low_fit`.
+- Operations can correct the initial classification after review.
 
 #### Consent
 
 - Users cannot submit without WhatsApp contact consent.
 - Users cannot submit without the privacy acknowledgement.
-- Feedback consent records both `Ya` and `Tidak` without blocking submission.
+- Feedback consent remains optional and does not block submission.
 
 #### Saving and WhatsApp
 
@@ -470,9 +508,9 @@ Target delivery: one short implementation cycle.
 Includes:
 
 - `/sebelum-dp/intake` route.
-- Seven-step mobile-first intake flow.
+- Six-step mobile-first intake flow.
 - Required field validation.
-- Exploratory and qualified-candidate classification.
+- Qualified-candidate, exploratory, and low-fit classification.
 - Google Sheets submission.
 - Campaign attribution.
 - Success and error states.

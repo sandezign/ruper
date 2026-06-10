@@ -23,6 +23,18 @@ if (sticky && hero) {
   updateSticky();
 }
 
+document.querySelectorAll("[data-hero-scroll]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+    event.preventDefault();
+    history.replaceState(null, "", link.getAttribute("href"));
+    const navHeight = document.querySelector(".nav")?.offsetHeight || 0;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 18;
+    window.scrollTo({ top: targetTop, behavior: "smooth" });
+  });
+});
+
 document.querySelectorAll("[data-sample-form]").forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -37,10 +49,12 @@ document.querySelectorAll("[data-sample-form]").forEach((form) => {
     });
     if (!valid) return;
     const button = form.querySelector("button");
-    button.textContent = "Opening WhatsApp...";
+    const name = form.querySelector('input[autocomplete="name"]')?.value.trim() || "";
+    const whatsapp = form.querySelector('input[autocomplete="tel"]')?.value.trim() || "";
+    sessionStorage.setItem("rumperIntakePrefill", JSON.stringify({ name, whatsapp }));
+    button.textContent = "Membuka formulir...";
     setTimeout(() => {
-      button.textContent = "Request Sample Report";
-      alert("Prototype: WhatsApp will open with a sample report request message.");
-    }, 450);
+      window.location.href = "intake.html";
+    }, 300);
   });
 });
